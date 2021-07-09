@@ -7,27 +7,27 @@
     
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Maven+Pro&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
   </head>
 
   
   <body style="background-color: #97cbe6;">
     <div class="container">
       <h1 class="brand"><span>AI</span> CHATBOT</h1>
-        <div class="wrapper animated bounceInLeft">
-                <div class="company-info">
+        <!--<div class="sub-container">-->  <!--wrapper animated bounceInLeft-->
+                <!--<div class="company-info">
                   <h3>CHATBOT</h3>
-                  <ul>
-                    <li><i class="fa fa-road"></i> DT</li>
-                    <li><i class="fa fa-phone"></i> ASY</li>
-                    <li><i class="fa fa-envelope"></i> PK</li>
+                  <ul class="left-list-content">
+                    <li><i class="fa fa-road"></i> Chatbot is ready</li>
+                    <li><i class="fa fa-phone"></i> to solve your</li>
+                    <li><i class="fa fa-envelope"></i> queries and problems.</li>
                   </ul>
-                </div>
+                </div>-->
 
 
                 <div class="contact">
 
                     <div class="displayArea">
-                        <h3>Message Here:</h3>
                         <ul id="displaysent">
                     
                         </ul>
@@ -35,11 +35,10 @@
                     <div class="textArea">
                       <form id="contactform">
                         <p class="full">
-                          <label>Message</label>
                           <textarea name="message" placeholder="Enter message..." rows="3" id="message"></textarea>
                         </p>                   
                         <p class="full">
-                          <button type="submit">Send Message</button>
+                          <button type="submit" id="send-btn"><i class="fas fa-paper-plane"></i></button>
                         </p>
                       </form>
                     </div>
@@ -98,8 +97,15 @@
 
       //read data from firebase
       firebase.database().ref("sentchat").on("child_added", function (snapshot) {
-
-          var newMessage = "<li class='chatUI'><b>" + snapshot.val().user + " : </b>" + snapshot.val().message + "<li>";
+		
+	  if(snapshot.val().user == "CHATBOT") 
+	  {
+          	var newMessage = "<li class='chatbotUI'><b>" + snapshot.val().user + " : </b>" + snapshot.val().message + "<li>";
+	  }
+	  else 
+	  {
+          	var newMessage = "<li class='chatUI'><b>" + snapshot.val().user + " : </b>" + snapshot.val().message + "<li>";	  
+	  }
 
           document.getElementById("displaysent").innerHTML += newMessage;
       });
